@@ -1,0 +1,98 @@
+﻿<Window x:Class="AdvanticaAutomationTestClient.Views.UpdateWorkerView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AdvanticaAutomationTestClient.Views"
+        mc:Ignorable="d"
+        Title="Мастер изменения рабочего" Height="310" Width="300" 
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <StackPanel Margin="5" Orientation="Vertical" HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="3.2*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="*Фамилия"/>
+                <TextBox Grid.Column="1" Margin="5,0,5,0" Height="25" VerticalContentAlignment="Center"
+                         Text="{Binding SelectedWorker.LastName, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+            <Separator Height="5" Opacity="0"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="3.2*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="*Имя"/>
+                <TextBox Grid.Column="1" Margin="5,0,5,0" Height="25" VerticalContentAlignment="Center"
+                         Text="{Binding SelectedWorker.FirstName, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+            <Separator Height="5" Opacity="0"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="3.2*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Отчество"/>
+                <TextBox Grid.Column="1" Margin="5,0,5,0" Height="25" VerticalContentAlignment="Center"
+                         Text="{Binding SelectedWorker.MiddleName, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+            <Separator Height="5" Opacity="0"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="1.8*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="*Дата рождения"/>
+                <TextBox Grid.Column="1" Margin="5,0,5,0" Height="25" VerticalContentAlignment="Center"
+                         Text="{Binding SelectedWorker.Birthday, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+            <StackPanel Orientation="Horizontal">
+                <Grid Margin="50,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="*Есть дети?" HorizontalAlignment="Center"/>
+                    <StackPanel Grid.Row="1" Orientation="Vertical">
+                        <RadioButton Grid.Column="0" Content="Да" 
+                                     IsChecked="{Binding HaveChildren, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                     HorizontalAlignment="Left" Margin="5,0,0,0"/>
+                        <RadioButton Grid.Column="1" Content="Нет" 
+                                     IsChecked="{Binding DontHaveChildren, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                     HorizontalAlignment="Left" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </Grid>
+                <Rectangle Width="1" Fill="Black" Margin="20,5,20,2"/>
+                <Grid Margin="0,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="Пол рабочего" HorizontalAlignment="Center"/>
+                    <StackPanel Grid.Row="1" Orientation="Vertical">
+                        <RadioButton Grid.Column="0" Content="Мужской" 
+                                     IsChecked="{Binding IsMan, Mode=TwoWay}" 
+                                     HorizontalAlignment="Left" Margin="5,0,0,0"/>
+                        <RadioButton Grid.Column="1" Content="Женский" 
+                                     IsChecked="{Binding IsWoman, Mode=TwoWay}" 
+                                     HorizontalAlignment="Left" Margin="5,0,0,0"/>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+            <Separator Height="5" Opacity="0"/>
+            <Button Content="Изменить рабочего" Height="30" Margin="30,0" Background="Green" Foreground="White"
+                    Command="{Binding AddWorkerCommand}">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Separator Height="5" Margin="5,10,5,0" Background="Black"/>
+            <Label Content="* - обязательный параметр"/>
+        </StackPanel>
+    </Grid>
+</Window>

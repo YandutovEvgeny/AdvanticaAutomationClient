@@ -1,0 +1,115 @@
+﻿<Window x:Class="AdvanticaAutomationTestClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:converters="clr-namespace:AdvanticaAutomationTestClient.Converters"
+        xmlns:local="clr-namespace:AdvanticaAutomationTestClient"
+        mc:Ignorable="d"
+        Title="CRM v2.0" Height="450" Width="800" 
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize" >
+    <Window.Resources>
+        <converters:SexToTextConverter x:Key="SexToTextConverter"/>
+        <converters:HaveChildrenToTextConverter x:Key="HaveChildrenToTextConverter"/>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Grid.Row="0" Content="Список сотрудников" HorizontalAlignment="Center"/>
+        <ListBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Workers, UpdateSourceTrigger=PropertyChanged}" 
+                 Margin="5" Background="White" SelectedItem="{Binding SelectedWorker, UpdateSourceTrigger=PropertyChanged}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Row="0" Grid.RowSpan="4" Grid.Column="0" 
+                               Source="/AdvanticaAutomationTestClient;component/Resources/Images/DefaultWorkerImage.jpg"
+                               Height="80" Width="80" Margin="5,5,5,5"/>
+                        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                            <Label Content="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" />
+                            <Label Content="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" />
+                            <Label Content="{Binding MiddleName, UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                            <Label Content="Пол:" />
+                            <Label Content="{Binding Sex, Converter={StaticResource SexToTextConverter}, 
+                                UpdateSourceTrigger=PropertyChanged}"/>
+                            <Label Content="Дата рождения:"/>
+                            <Label Content="{Binding Birthday, UpdateSourceTrigger=PropertyChanged}" />
+                            <Label Content="Есть дети:"/>
+                            <Label Content="{Binding HaveChildren, Converter={StaticResource HaveChildrenToTextConverter}, 
+                                UpdateSourceTrigger=PropertyChanged}" />
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Grid Grid.Row="2" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Добавить рабочего" Margin="10" 
+                    Background="Green" Foreground="White" 
+                    Command="{Binding AddWorkerCommand}">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Grid.Column="1" Content="Изменить данные" Margin="10"
+                    Command="{Binding UpdateWorkerCommand}">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button Grid.Column="2" Content="Удалить рабочего" Margin="10" 
+                    Background="Red" Foreground="white"
+                    Command="{Binding DeleteWorkerCommand}">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </Grid>
+        <Label Grid.Column="1" Grid.Row="0" Content="Выбранный рабочий" HorizontalAlignment="Center"/>
+        <StackPanel Grid.Column="1" Grid.Row="1">
+            <TextBlock VerticalAlignment="Center" TextWrapping="Wrap">
+                <Run Text="ФИО:"/>
+                <Run Text="{Binding SelectedWorker.LastName}"/>
+                <Run Text="{Binding SelectedWorker.FirstName}"/>
+                <Run Text="{Binding SelectedWorker.MiddleName}"/> 
+                <LineBreak/>
+                <Run Text="Дата рождения:"/>
+                <Run Text="{Binding SelectedWorker.Birthday}"/>
+                <LineBreak/>
+                <Run Text="Пол:"/>
+                <Run Text="{Binding SelectedWorker.Sex, Converter={StaticResource SexToTextConverter}}"/>
+                <LineBreak/>
+                <Run Text="Наличие детей:"/>
+                <Run Text="{Binding SelectedWorker.HaveChildren, Converter={StaticResource HaveChildrenToTextConverter}}"/>
+            </TextBlock>
+        </StackPanel>
+        <Image Grid.Row="2" Grid.Column="1" Height="50" Width="120"
+               Source="/AdvanticaAutomationTestClient;component/Resources/Images/YouAdsCouldBeHereImage.jpg"/>
+    </Grid>
+</Window>
