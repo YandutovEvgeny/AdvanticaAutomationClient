@@ -1,4 +1,5 @@
-﻿using Utis.Minex.WrokerIntegration;
+﻿using System;
+using Utis.Minex.WrokerIntegration;
 
 namespace AdvanticaAutomationTestClient.Models
 {
@@ -8,7 +9,7 @@ namespace AdvanticaAutomationTestClient.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MiddleName { get; set; }
-        public long Birthday { get; set; }
+        public DateTime Birthday { get; set; }
         public Sex Sex { get; set; }
         public bool HaveChildren { get; set; }
     }

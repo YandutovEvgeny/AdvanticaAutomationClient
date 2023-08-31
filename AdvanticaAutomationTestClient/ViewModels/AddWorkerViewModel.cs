@@ -2,6 +2,7 @@
 using AdvanticaAutomationTestClient.Interfaces;
 using AdvanticaAutomationTestClient.Models;
 using AdvanticaAutomationTestClient.Services;
+using Google.Protobuf.WellKnownTypes;
 using System;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
@@ -66,7 +67,7 @@ namespace AdvanticaAutomationTestClient.ViewModels
         public AddWorkerCommand AddWorkerCommand => new AddWorkerCommand(async () =>
         {
             var isValid = ValidateWorkerProps();
-            var sex = Sex.DefaultSex;
+            var sex = Sex.Default;
 
             if (IsMan)
             {
@@ -84,13 +85,12 @@ namespace AdvanticaAutomationTestClient.ViewModels
 
             var addedWorker = await _addWorkerService.AddWorkerAsync(new Utis.Minex.WrokerIntegration.WorkerAction
             {
-                ActionType = Utis.Minex.WrokerIntegration.Action.Create,
                 Worker = new Utis.Minex.WrokerIntegration.WorkerMessage
                 {
                     FirstName = Worker.FirstName,
                     LastName = Worker.LastName,
                     MiddleName = Worker.MiddleName ?? string.Empty,
-                    Birthday = Worker.Birthday,
+                    Birthday = Timestamp.FromDateTime(Worker.Birthday),
                     Sex = sex,
                     HaveChildren = HaveChildren ? true : false,
                 }
@@ -112,7 +112,7 @@ namespace AdvanticaAutomationTestClient.ViewModels
         {
             //в бд храним long 
             //при получении лонг парсим в строку, затем в DateTime и наоборот
-            if (Worker.FirstName == null || Worker.LastName == null || Worker.Birthday == 0)
+            if (Worker.FirstName == null || Worker.LastName == null)
             {
                 return false;
             }

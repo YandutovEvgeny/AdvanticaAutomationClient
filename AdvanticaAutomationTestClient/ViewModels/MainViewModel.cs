@@ -3,6 +3,7 @@ using AdvanticaAutomationTestClient.Interfaces;
 using AdvanticaAutomationTestClient.Models;
 using AdvanticaAutomationTestClient.Services;
 using AdvanticaAutomationTestClient.Views;
+using Google.Protobuf.WellKnownTypes;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -73,14 +74,13 @@ namespace AdvanticaAutomationTestClient.ViewModels
             {
                 var deletedWorker = await _service.DeleteWorkerAsync(new Utis.Minex.WrokerIntegration.WorkerAction
                 {
-                    ActionType = Utis.Minex.WrokerIntegration.Action.Delete,
                     Worker = new Utis.Minex.WrokerIntegration.WorkerMessage
                     {
                         Id = SelectedWorker.Id,
                         FirstName = SelectedWorker.FirstName, 
                         LastName = SelectedWorker.LastName,
                         MiddleName = SelectedWorker.MiddleName ?? string.Empty,
-                        Birthday = DateTimeToLongConverter(SelectedWorker.Birthday),
+                        Birthday = Timestamp.FromDateTime(SelectedWorker.Birthday),
                         Sex = SelectedWorker.Sex,
                         HaveChildren = SelectedWorker.HaveChildren
                     }
@@ -108,7 +108,7 @@ namespace AdvanticaAutomationTestClient.ViewModels
                     FirstName = worker.FirstName,
                     LastName = worker.LastName,
                     MiddleName = worker.MiddleName,
-                    Birthday = LongToDateTimeConverter(worker.Birthday),
+                    Birthday = worker.Birthday,
                     Sex = worker.Sex,
                     HaveChildren = worker.HaveChildren
                 });

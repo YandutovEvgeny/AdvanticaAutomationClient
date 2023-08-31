@@ -2,6 +2,8 @@ syntax = "proto3";
 
 option csharp_namespace = "Utis.Minex.WrokerIntegration";
 
+import "google/protobuf/timestamp.proto";
+
 service WorkerIntegration {
 	rpc GetWorkerStream (EmptyMessage) returns (stream WorkerAction);
 	rpc CreateWorker (WorkerAction) returns (WorkerMessage);
@@ -15,14 +17,11 @@ message WorkerId
 	int64 Id = 1;
 }
 
-message EmptyMessage
-{
-}
+message EmptyMessage {}
 
 message WorkerAction
 {
 	WorkerMessage Worker = 1;
-	Action ActionType = 2;
 }
 
 message WorkerMessage
@@ -31,21 +30,14 @@ message WorkerMessage
 	string LastName = 2;
 	string FirstName = 3;
 	string MiddleName = 4;
-	int64 Birthday = 5;
+	google.protobuf.Timestamp Birthday = 5;
 	Sex Sex = 6;
 	bool HaveChildren = 7;
 }
 
 //Пол
 enum Sex {
-	DefaultSex = 0;
+	Default = 0;
 	Male = 1;
 	Female = 2;
-}
-
-enum Action {
-	DefaultAction = 0;
-	Create = 1;
-	Update = 2;
-	Delete = 3;
 }

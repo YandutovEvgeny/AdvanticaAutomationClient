@@ -50,7 +50,7 @@ namespace AdvanticaAutomationTestClient.Services
                             FirstName = response.Worker.FirstName,
                             LastName = response.Worker.LastName,
                             MiddleName = response.Worker.MiddleName,
-                            Birthday = response.Worker.Birthday,
+                            Birthday = response.Worker.Birthday.ToDateTime(),
                             HaveChildren = response.Worker.HaveChildren,
                             Sex = response.Worker.Sex
                         });

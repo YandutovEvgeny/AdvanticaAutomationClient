@@ -16,7 +16,7 @@ namespace AdvanticaAutomationTestClient.Converters
             {
                 case Sex.Male: result = "Мужской"; break;
                 case Sex.Female: result = "Женский"; break; 
-                case Sex.DefaultSex: result = "Не определено"; break;
+                case Sex.Default: result = "Не определено"; break;
             }
 
             return result;

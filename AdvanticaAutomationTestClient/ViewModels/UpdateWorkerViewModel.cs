@@ -75,7 +75,7 @@ namespace AdvanticaAutomationTestClient.ViewModels
                 FirstName = data.FirstName,
                 LastName = data.LastName,
                 MiddleName = data.MiddleName,
-                Birthday = data.Birthday,
+                Birthday = data.Birthday.ToDateTime(),
                 HaveChildren = data.HaveChildren,
                 Sex = data.Sex
             };
@@ -87,7 +87,7 @@ namespace AdvanticaAutomationTestClient.ViewModels
             {
                 case Sex.Male: IsMan = true; break;
                 case Sex.Female: IsWoman = true; break;
-                case Sex.DefaultSex:
+                case Sex.Default:
                     IsMan = false;
                     IsWoman = false; break;
             }
