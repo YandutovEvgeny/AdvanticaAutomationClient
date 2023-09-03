@@ -1,5 +1,6 @@
 ﻿using AdvanticaAutomationTestClient.Commands;
 using AdvanticaAutomationTestClient.Interfaces;
+using AdvanticaAutomationTestClient.Localization;
 using AdvanticaAutomationTestClient.Models;
 using AdvanticaAutomationTestClient.Services;
 using AdvanticaAutomationTestClient.Views;
@@ -7,9 +8,7 @@ using Google.Protobuf.WellKnownTypes;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows;
-using System.Windows.Automation.Peers;
 using Utis.Minex.WrokerIntegration;
 
 namespace AdvanticaAutomationTestClient.ViewModels
@@ -52,7 +51,7 @@ namespace AdvanticaAutomationTestClient.ViewModels
         {
             if (SelectedWorker == null)
             {
-                MessageBox.Show("Выберите рабочего, которого хотите изменить!", "Рабочий не выбран", 
+                MessageBox.Show(Resources.MainSelectUpdateWorker, Resources.MainWorkerNotSelected, 
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
@@ -63,24 +62,24 @@ namespace AdvanticaAutomationTestClient.ViewModels
         {
             if (SelectedWorker == null)
             {
-                MessageBox.Show("Выберите рабочего, которого хотите удалить!", "Рабочий не выбран",
+                MessageBox.Show(Resources.MainSelectDeleteWorker, Resources.MainWorkerNotSelected,
                     MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
-            MessageBoxResult result = MessageBox.Show("Вы действительно хотите удалить рабочего?", "Удаление рабочего",
+            MessageBoxResult result = MessageBox.Show(Resources.MainAreYouSureToDeleteWorker, Resources.MainDeletingWorker,
                 MessageBoxButton.YesNo, MessageBoxImage.Question);
             if(result == MessageBoxResult.Yes)
             {
-                var deletedWorker = await _service.DeleteWorkerAsync(new Utis.Minex.WrokerIntegration.WorkerAction
+                var deletedWorker = await _service.DeleteWorkerAsync(new WorkerAction
                 {
-                    Worker = new Utis.Minex.WrokerIntegration.WorkerMessage
+                    Worker = new WorkerMessage
                     {
                         Id = SelectedWorker.Id,
                         FirstName = SelectedWorker.FirstName, 
                         LastName = SelectedWorker.LastName,
                         MiddleName = SelectedWorker.MiddleName ?? string.Empty,
-                        Birthday = Timestamp.FromDateTime(SelectedWorker.Birthday),
+                        Birthday = Timestamp.FromDateTime(DateTime.SpecifyKind(SelectedWorker.Birthday, DateTimeKind.Utc)),
                         Sex = SelectedWorker.Sex,
                         HaveChildren = SelectedWorker.HaveChildren
                     }
@@ -88,8 +87,9 @@ namespace AdvanticaAutomationTestClient.ViewModels
 
                 if(deletedWorker is WorkerMessage)
                 {
-                    MessageBox.Show("Рабочий успешно удалён!", "Рабочий удалён", MessageBoxButton.OK, MessageBoxImage.Information );
                     GetWorkers();
+                    MessageBox.Show(Resources.MainWorkerSuccessfullyRemoved, Resources.MainWorkerRemoved, 
+                        MessageBoxButton.OK, MessageBoxImage.Information );
                 }
             }
 
@@ -99,7 +99,12 @@ namespace AdvanticaAutomationTestClient.ViewModels
         public async void GetWorkers()
         {
             var data = await _service.GetWorkersAsync();
-            
+
+            if (Workers.Count != 0)
+            {
+                Workers.Clear();
+            }
+
             foreach (var worker in data)
             {
                 Workers.Add(new WorkerModel
@@ -113,42 +118,6 @@ namespace AdvanticaAutomationTestClient.ViewModels
                     HaveChildren = worker.HaveChildren
                 });
             }
-        }
-
-        private DateTime LongToDateTimeConverter(long value)
-        {
-            try
-            {
-                var date = value.ToString(); //15122000
-                int day, month, year = 0;
-
-                if (value.ToString().Length == 8)
-                {
-                    day = Convert.ToInt32(date.Substring(0, date.Length - 6)); //15
-                    month = Convert.ToInt32(date.Substring(2, date.Length - 6)); //12
-                    year = Convert.ToInt32(date.Substring(4)); //2000
-
-                    return new DateTime(year, month, day);
-                }
-
-                //date = "0" + date;
-                day = Convert.ToInt32(date.Substring(0, date.Length - 6));
-                month = Convert.ToInt32(date.Substring(1, date.Length - 5));
-                year = Convert.ToInt32(date.Substring(3));
-
-                return new DateTime(year, month, day);
-            }
-            catch (Exception)
-            {
-                return DateTime.MinValue;
-            }
-        }
-        private long DateTimeToLongConverter(DateTime value)
-        {
-            string result = value.ToShortDateString();  //01.12.1234
-           // result = result.Replace('.', /*??*/);
-
-            return Convert.ToInt64(result);
         }
 
         private void OpenAddWorkerWindow()

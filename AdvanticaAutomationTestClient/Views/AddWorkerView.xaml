@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:AdvanticaAutomationTestClient.Views"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:localize="clr-namespace:AdvanticaAutomationTestClient.Localization"
         mc:Ignorable="d"
-        Title="Мастер добавления рабочего" Height="310" Width="300" 
+        Title="{x:Static localize:Resources.AddWorkerAddWorkerWizzard}" Height="310" Width="300" 
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <StackPanel Margin="5" Orientation="Vertical" HorizontalAlignment="Stretch" 
@@ -15,7 +16,7 @@
                     <ColumnDefinition />
                     <ColumnDefinition Width="3.2*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="*Фамилия"/>
+                <Label Grid.Column="0" Content="{x:Static localize:Resources.AddWorkerLastName}"/>
                 <TextBox Grid.Column="1" Margin="5,0,5,0" Height="25" VerticalContentAlignment="Center"
                          Text="{Binding Worker.LastName, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
@@ -25,7 +26,7 @@
                     <ColumnDefinition />
                     <ColumnDefinition Width="3.2*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="*Имя"/>
+                <Label Grid.Column="0" Content="{x:Static localize:Resources.AddWorkerFirstName}"/>
                 <TextBox Grid.Column="1" Margin="5,0,5,0" Height="25" VerticalContentAlignment="Center"
                          Text="{Binding Worker.FirstName, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
@@ -35,7 +36,7 @@
                     <ColumnDefinition />
                     <ColumnDefinition Width="3.2*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="Отчество"/>
+                <Label Grid.Column="0" Content="{x:Static localize:Resources.AddWorkerMiddleName}"/>
                 <TextBox Grid.Column="1" Margin="5,0,5,0" Height="25" VerticalContentAlignment="Center"
                          Text="{Binding Worker.MiddleName, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
@@ -45,9 +46,10 @@
                     <ColumnDefinition />
                     <ColumnDefinition Width="1.8*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="*Дата рождения"/>
-                <TextBox Grid.Column="1" Margin="5,0,5,0" Height="25" VerticalContentAlignment="Center"
-                         Text="{Binding Worker.Birthday, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Grid.Column="0" Content="{x:Static localize:Resources.AddWorkerBirtday}"/>
+                <DatePicker Grid.Column="1" Margin="5,0,5,0" Height="25" VerticalContentAlignment="Center"
+                            SelectedDate="{Binding Worker.Birthday, UpdateSourceTrigger=PropertyChanged}"
+                            Text="{Binding Source={x:Static sys:DateTime.Today}, StringFormat=dd.MM.yyyy}"/>
             </Grid>
             <StackPanel Orientation="Horizontal">
                 <Grid Margin="50,0,0,0">
@@ -55,14 +57,20 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="*Есть дети?" HorizontalAlignment="Center"/>
+                    <Label Grid.Row="0" 
+                           Content="{x:Static localize:Resources.AddWorkerHaveChildrens}" 
+                           HorizontalAlignment="Center"/>
                     <StackPanel Grid.Row="1" Orientation="Vertical">
-                        <RadioButton Grid.Column="0" Content="Да" 
+                        <RadioButton Grid.Column="0" 
+                                     Content="{x:Static localize:Resources.AddWorkerYes}" 
                                      IsChecked="{Binding HaveChildren, Mode=TwoWay}" 
-                                     HorizontalAlignment="Left" Margin="5,0,0,0"/>
-                        <RadioButton Grid.Column="1" Content="Нет" 
+                                     HorizontalAlignment="Left" 
+                                     Margin="5,0,0,0"/>
+                        <RadioButton Grid.Column="1" 
+                                     Content="{x:Static localize:Resources.AddWorkerNo}"  
                                      IsChecked="{Binding DontHaveChildren, Mode=TwoWay}" 
-                                     HorizontalAlignment="Left" Margin="5,0,0,0"/>
+                                     HorizontalAlignment="Left" 
+                                     Margin="5,0,0,0"/>
                     </StackPanel>
                 </Grid>
                 <Rectangle Width="1" Fill="Black" Margin="20,5,20,2"/>
@@ -71,19 +79,26 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0" Content="Пол рабочего" HorizontalAlignment="Center"/>
+                    <Label Grid.Row="0" 
+                           Content="{x:Static localize:Resources.AddWorkerSex}" 
+                           HorizontalAlignment="Center"/>
                     <StackPanel Grid.Row="1" Orientation="Vertical">
-                        <RadioButton Grid.Column="0" Content="Мужской" 
+                        <RadioButton Grid.Column="0" 
+                                     Content="{x:Static localize:Resources.AddWorkerMale}" 
                                      IsChecked="{Binding IsMan, Mode=TwoWay}" 
-                                     HorizontalAlignment="Left" Margin="5,0,0,0"/>
-                        <RadioButton Grid.Column="1" Content="Женский" 
+                                     HorizontalAlignment="Left" 
+                                     Margin="5,0,0,0"/>
+                        <RadioButton Grid.Column="1" 
+                                     Content="{x:Static localize:Resources.AddWorkerFemale}" 
                                      IsChecked="{Binding IsWoman, Mode=TwoWay}" 
-                                     HorizontalAlignment="Left" Margin="5,0,0,0"/>
+                                     HorizontalAlignment="Left" 
+                                     Margin="5,0,0,0"/>
                     </StackPanel>
                 </Grid>
             </StackPanel>
             <Separator Height="5" Opacity="0"/>
-            <Button Content="Добавить рабочего" Height="30" Margin="30,0" Background="Green" Foreground="White"
+            <Button Content="{x:Static localize:Resources.AddWorkerAddWorker}" Height="30" 
+                    Margin="30,0" Background="Green" Foreground="White"
                     Command="{Binding AddWorkerCommand}">
                 <Button.Resources>
                     <Style TargetType="Border">
@@ -92,7 +107,7 @@
                 </Button.Resources>
             </Button>
             <Separator Height="5" Margin="5,10,5,0" Background="Black"/>
-            <Label Content="* - обязательный параметр"/>
+            <Label Content="{x:Static localize:Resources.AddWorkerRequired}"/>
         </StackPanel>
     </Grid>
 </Window>

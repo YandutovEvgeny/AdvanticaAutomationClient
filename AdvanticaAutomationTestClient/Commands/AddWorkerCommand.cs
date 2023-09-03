@@ -8,6 +8,7 @@ namespace AdvanticaAutomationTestClient.Commands
         public event EventHandler? CanExecuteChanged;
 
         private Action _addWorkerCommand;
+
         public AddWorkerCommand(Action addWorkerCommand)
         {
             this._addWorkerCommand = addWorkerCommand;

@@ -11,5 +11,6 @@ namespace AdvanticaAutomationTestClient.Interfaces
         Task<WorkerMessage> AddWorker(WorkerAction workerAction);
         Task<WorkerMessage> RemoveWorker(WorkerAction workerAction);
         Task<WorkerMessage> FindWorkerById(long id);
+        Task<WorkerMessage> EditWorker(WorkerAction workerAction);
     }
 }

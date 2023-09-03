@@ -1,11 +1,11 @@
 ﻿using AdvanticaAutomationTestClient.Commands;
 using AdvanticaAutomationTestClient.Interfaces;
+using AdvanticaAutomationTestClient.Localization;
 using AdvanticaAutomationTestClient.Models;
 using AdvanticaAutomationTestClient.Services;
 using Google.Protobuf.WellKnownTypes;
 using System;
 using System.ComponentModel;
-using System.Text.RegularExpressions;
 using System.Windows;
 using Utis.Minex.WrokerIntegration;
 
@@ -31,7 +31,7 @@ namespace AdvanticaAutomationTestClient.ViewModels
 
         #region Props
 
-        public System.Action CloseAction { get; set; }
+        public Action CloseAction { get; set; }
         public WorkerServiceModel Worker
         {
             get => _worker;
@@ -80,17 +80,19 @@ namespace AdvanticaAutomationTestClient.ViewModels
 
             if (!isValid)
             {
-                MessageBox.Show("Заполните обязательные поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Resources.AddWorkerFillRequiredFields, Resources.AddWorkerError, 
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
 
-            var addedWorker = await _addWorkerService.AddWorkerAsync(new Utis.Minex.WrokerIntegration.WorkerAction
+            var addedWorker = await _addWorkerService.AddWorkerAsync(new WorkerAction
             {
-                Worker = new Utis.Minex.WrokerIntegration.WorkerMessage
+                Worker = new WorkerMessage
                 {
                     FirstName = Worker.FirstName,
                     LastName = Worker.LastName,
                     MiddleName = Worker.MiddleName ?? string.Empty,
-                    Birthday = Timestamp.FromDateTime(Worker.Birthday),
+                    Birthday = Timestamp.FromDateTime(DateTime.SpecifyKind(Worker.Birthday, DateTimeKind.Utc)),
                     Sex = sex,
                     HaveChildren = HaveChildren ? true : false,
                 }
@@ -98,21 +100,22 @@ namespace AdvanticaAutomationTestClient.ViewModels
 
             if (addedWorker is WorkerMessage)
             {
-                MessageBox.Show($"Рабочий {addedWorker.MiddleName} {addedWorker.FirstName} {addedWorker.LastName} успешно создан",
-                    "Рабочий добавлен", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show(Resources.AddWorkerWorker + addedWorker.LastName + " " + addedWorker.FirstName + 
+                    " " + addedWorker.MiddleName + Resources.AddWorkerSuccessfullyCreated,
+                    Resources.AddWorkerWorkerSuccessfullyAdded, MessageBoxButton.OK, MessageBoxImage.Information);
                 CloseAction();
                 return;
             }
 
-            MessageBox.Show("Упс, что-то пошло не так...", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(Resources.AddWorkerTakeAdministrator, Resources.AddWorkerError,
+                MessageBoxButton.OK, MessageBoxImage.Error);
+            CloseAction();
         });
         #endregion
 
         private bool ValidateWorkerProps()
         {
-            //в бд храним long 
-            //при получении лонг парсим в строку, затем в DateTime и наоборот
-            if (Worker.FirstName == null || Worker.LastName == null)
+            if (string.IsNullOrEmpty(Worker.FirstName) || string.IsNullOrEmpty(Worker.LastName))
             {
                 return false;
             }

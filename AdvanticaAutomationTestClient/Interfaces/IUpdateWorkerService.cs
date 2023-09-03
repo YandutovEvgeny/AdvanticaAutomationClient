@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Utis.Minex.WrokerIntegration;
 
 namespace AdvanticaAutomationTestClient.Interfaces
@@ -10,5 +6,6 @@ namespace AdvanticaAutomationTestClient.Interfaces
     interface IUpdateWorkerService
     {
         Task<WorkerMessage> FindWorkerByIdAsync(long id);
+        Task<WorkerMessage> EditWorkerAsync(WorkerAction workerAction);
     }
 }

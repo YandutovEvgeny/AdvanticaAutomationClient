@@ -71,5 +71,12 @@ namespace AdvanticaAutomationTestClient.Services
 
             return await Task.FromResult(deletedWorker);
         }
+
+        public async Task<WorkerMessage> EditWorker(WorkerAction workerAction)
+        {
+            var updatedWorker = await _client.EditWorkerAsync(workerAction);
+
+            return await Task.FromResult(updatedWorker);
+        }
     }
 }

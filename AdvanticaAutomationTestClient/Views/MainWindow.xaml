@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converters="clr-namespace:AdvanticaAutomationTestClient.Converters"
+        xmlns:localize="clr-namespace:AdvanticaAutomationTestClient.Localization"
         xmlns:local="clr-namespace:AdvanticaAutomationTestClient"
         mc:Ignorable="d"
         Title="CRM v2.0" Height="450" Width="800" 
@@ -11,6 +12,7 @@
     <Window.Resources>
         <converters:SexToTextConverter x:Key="SexToTextConverter"/>
         <converters:HaveChildrenToTextConverter x:Key="HaveChildrenToTextConverter"/>
+        <converters:DateTimeToDateConverter x:Key="DateTimeToDateConverter"/>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -22,7 +24,7 @@
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label Grid.Row="0" Content="Список сотрудников" HorizontalAlignment="Center"/>
+        <Label Grid.Row="0" Content="{x:Static localize:Resources.MainWorkerList}" HorizontalAlignment="Center"/>
         <ListBox Grid.Column="0" Grid.Row="1" ItemsSource="{Binding Workers, UpdateSourceTrigger=PropertyChanged}" 
                  Margin="5" Background="White" SelectedItem="{Binding SelectedWorker, UpdateSourceTrigger=PropertyChanged}">
             <ListBox.ItemTemplate>
@@ -45,12 +47,13 @@
                             <Label Content="{Binding MiddleName, UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
                         <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
-                            <Label Content="Пол:" />
+                            <Label Content="{x:Static localize:Resources.MainSex}" />
                             <Label Content="{Binding Sex, Converter={StaticResource SexToTextConverter}, 
                                 UpdateSourceTrigger=PropertyChanged}"/>
-                            <Label Content="Дата рождения:"/>
-                            <Label Content="{Binding Birthday, UpdateSourceTrigger=PropertyChanged}" />
-                            <Label Content="Есть дети:"/>
+                            <Label Content="{x:Static localize:Resources.MainBirthday}"/>
+                            <Label Content="{Binding Birthday, Converter={StaticResource DateTimeToDateConverter},
+                                UpdateSourceTrigger=PropertyChanged}" />
+                            <Label Content="{x:Static localize:Resources.MainHaveChildrens}"/>
                             <Label Content="{Binding HaveChildren, Converter={StaticResource HaveChildrenToTextConverter}, 
                                 UpdateSourceTrigger=PropertyChanged}" />
                         </StackPanel>
@@ -64,7 +67,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="Добавить рабочего" Margin="10" 
+            <Button Grid.Column="0" Content="{x:Static localize:Resources.MainAddWorker}" Margin="10" 
                     Background="Green" Foreground="White" 
                     Command="{Binding AddWorkerCommand}">
                 <Button.Resources>
@@ -73,7 +76,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button Grid.Column="1" Content="Изменить данные" Margin="10"
+            <Button Grid.Column="1" Content="{x:Static localize:Resources.MainChangeWorkerData}" Margin="10"
                     Command="{Binding UpdateWorkerCommand}">
                 <Button.Resources>
                     <Style TargetType="Border">
@@ -81,7 +84,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button Grid.Column="2" Content="Удалить рабочего" Margin="10" 
+            <Button Grid.Column="2" Content="{x:Static localize:Resources.MainDeleteWorker}" Margin="10" 
                     Background="Red" Foreground="white"
                     Command="{Binding DeleteWorkerCommand}">
                 <Button.Resources>
@@ -91,25 +94,26 @@
                 </Button.Resources>
             </Button>
         </Grid>
-        <Label Grid.Column="1" Grid.Row="0" Content="Выбранный рабочий" HorizontalAlignment="Center"/>
+        <Label Grid.Column="1" 
+               Grid.Row="0" 
+               Content="{x:Static localize:Resources.MainSelectedWorker}" 
+               HorizontalAlignment="Left"/>
         <StackPanel Grid.Column="1" Grid.Row="1">
             <TextBlock VerticalAlignment="Center" TextWrapping="Wrap">
-                <Run Text="ФИО:"/>
+                <Run Text="{x:Static localize:Resources.MainSelectedWorkerFLM}"/>
                 <Run Text="{Binding SelectedWorker.LastName}"/>
                 <Run Text="{Binding SelectedWorker.FirstName}"/>
                 <Run Text="{Binding SelectedWorker.MiddleName}"/> 
                 <LineBreak/>
-                <Run Text="Дата рождения:"/>
-                <Run Text="{Binding SelectedWorker.Birthday}"/>
+                <Run Text="{x:Static localize:Resources.MainSelectedWorkerBirthday}"/>
+                <Run Text="{Binding SelectedWorker.Birthday, StringFormat=dd.MM.yyyy}"/>
                 <LineBreak/>
-                <Run Text="Пол:"/>
+                <Run Text="{x:Static localize:Resources.MainSelectedWorkerSex}"/>
                 <Run Text="{Binding SelectedWorker.Sex, Converter={StaticResource SexToTextConverter}}"/>
                 <LineBreak/>
-                <Run Text="Наличие детей:"/>
+                <Run Text="{x:Static localize:Resources.MainSelectedWorkerHaveChildrens}"/>
                 <Run Text="{Binding SelectedWorker.HaveChildren, Converter={StaticResource HaveChildrenToTextConverter}}"/>
             </TextBlock>
         </StackPanel>
-        <Image Grid.Row="2" Grid.Column="1" Height="50" Width="120"
-               Source="/AdvanticaAutomationTestClient;component/Resources/Images/YouAdsCouldBeHereImage.jpg"/>
     </Grid>
 </Window>

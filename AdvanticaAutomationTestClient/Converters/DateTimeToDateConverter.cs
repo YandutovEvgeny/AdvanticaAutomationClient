@@ -1,22 +1,20 @@
-﻿using AdvanticaAutomationTestClient.Localization;
-using System;
+﻿using System;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Data;
 
 namespace AdvanticaAutomationTestClient.Converters
 {
-    public class HaveChildrenToTextConverter : IValueConverter
+    public class DateTimeToDateConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var haveChildren = (bool)value;
-
-            return haveChildren ? Resources.MainYes : Resources.MainNo;
+            return ((DateTime)value).ToString("dd.MM.yyyy");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            return DependencyProperty.UnsetValue;
         }
     }
 }

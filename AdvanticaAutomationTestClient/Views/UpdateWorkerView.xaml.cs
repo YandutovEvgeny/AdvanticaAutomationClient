@@ -1,4 +1,5 @@
 ﻿using AdvanticaAutomationTestClient.ViewModels;
+using System;
 using System.Windows;
 
 namespace AdvanticaAutomationTestClient.Views
@@ -11,7 +12,12 @@ namespace AdvanticaAutomationTestClient.Views
         public UpdateWorkerView()
         {
             InitializeComponent();
-            this.DataContext = new UpdateWorkerViewModel();
+            var updateWorkerViewModel = new UpdateWorkerViewModel();
+            this.DataContext = updateWorkerViewModel;
+            if(updateWorkerViewModel.CloseAction == null)
+            {
+                updateWorkerViewModel.CloseAction = new Action(Close);
+            }
         }
     }
 }

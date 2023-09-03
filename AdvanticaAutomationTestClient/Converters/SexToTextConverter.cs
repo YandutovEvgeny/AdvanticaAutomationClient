@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdvanticaAutomationTestClient.Localization;
+using System;
 using System.Globalization;
 using System.Windows.Data;
 using Utis.Minex.WrokerIntegration;
@@ -14,9 +15,9 @@ namespace AdvanticaAutomationTestClient.Converters
 
             switch(workerSex)
             {
-                case Sex.Male: result = "Мужской"; break;
-                case Sex.Female: result = "Женский"; break; 
-                case Sex.Default: result = "Не определено"; break;
+                case Sex.Male: result = Resources.MainMale; break;
+                case Sex.Female: result = Resources.MainFemale; break; 
+                case Sex.Default: result = Resources.MainUndefined; break;
             }
 
             return result;

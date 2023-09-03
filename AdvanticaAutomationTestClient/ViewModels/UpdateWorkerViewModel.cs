@@ -1,13 +1,12 @@
-﻿using AdvanticaAutomationTestClient.Interfaces;
+﻿using AdvanticaAutomationTestClient.Commands;
+using AdvanticaAutomationTestClient.Interfaces;
 using AdvanticaAutomationTestClient.Models;
 using AdvanticaAutomationTestClient.Services;
+using Google.Protobuf.WellKnownTypes;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using Utis.Minex.WrokerIntegration;
 
 namespace AdvanticaAutomationTestClient.ViewModels
@@ -27,11 +26,12 @@ namespace AdvanticaAutomationTestClient.ViewModels
         {
             _service = new UpdateWorkerService();
 
-            SetSelectedWorker();
+            Task.Run(() => SetSelectedWorker());
         }
 
         #region Props
         public static long Id { get; set; }
+        public Action CloseAction { get; set; }
 
         public WorkerServiceModel SelectedWorker
         {
@@ -65,6 +65,46 @@ namespace AdvanticaAutomationTestClient.ViewModels
 
         #endregion
 
+        #region Commands
+        public UpdateWorkerCommand UpdateWorkerCommand => new UpdateWorkerCommand(async () => 
+        {
+            var isValid = ValidateWorkerProps();
+
+            if (!isValid)
+            {
+                MessageBox.Show("Заполните все обязательные поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var worker = new WorkerMessage
+            {
+                Id = SelectedWorker.Id,
+                FirstName = SelectedWorker.FirstName,
+                MiddleName = SelectedWorker.MiddleName,
+                LastName = SelectedWorker.LastName,
+                Birthday = Timestamp.FromDateTime(SelectedWorker.Birthday),
+                HaveChildren = HaveChildren ? true : false
+            };
+
+            if (IsMan) { worker.Sex = Sex.Male; }
+            else if(IsWoman) { worker.Sex = Sex.Female; }
+            else { worker.Sex = Sex.Default; }
+
+            var updatedWorker = await _service.EditWorkerAsync(new WorkerAction { Worker = worker });
+
+            if(updatedWorker is WorkerMessage)
+            {
+                MessageBox.Show($"Рабочий {updatedWorker.LastName} {updatedWorker.FirstName} {updatedWorker.MiddleName} успешно изменен",
+                    "Рабочий изменен", MessageBoxButton.OK, MessageBoxImage.Information);
+                CloseAction();
+                return;
+            }
+
+            MessageBox.Show("Упс, что-то пошло не так, обратитесь к администратору", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            CloseAction();
+        });
+        #endregion
+
         private async Task SetSelectedWorker()
         {
             var data = await _service.FindWorkerByIdAsync(Id);
@@ -75,7 +115,7 @@ namespace AdvanticaAutomationTestClient.ViewModels
                 FirstName = data.FirstName,
                 LastName = data.LastName,
                 MiddleName = data.MiddleName,
-                Birthday = data.Birthday.ToDateTime(),
+                Birthday = data.Birthday.ToDateTime().Date,
                 HaveChildren = data.HaveChildren,
                 Sex = data.Sex
             };
@@ -91,6 +131,16 @@ namespace AdvanticaAutomationTestClient.ViewModels
                     IsMan = false;
                     IsWoman = false; break;
             }
+        }
+
+        private bool ValidateWorkerProps()
+        {
+            if (string.IsNullOrEmpty(SelectedWorker.FirstName) || string.IsNullOrEmpty(SelectedWorker.LastName))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private void Notify(string propertyName)

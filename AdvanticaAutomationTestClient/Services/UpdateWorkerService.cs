@@ -6,16 +6,21 @@ namespace AdvanticaAutomationTestClient.Services
 {
     public class UpdateWorkerService : IUpdateWorkerService
     {
-        private readonly IGrpcService _service;
+        private readonly IGrpcService _grpcService;
 
         public UpdateWorkerService()
         {
-            _service = new GrpcService();
+            _grpcService = new GrpcService();
         }
 
         public async Task<WorkerMessage> FindWorkerByIdAsync(long id)
         {
-            return await _service.FindWorkerById(id);
+            return await _grpcService.FindWorkerById(id);
+        }
+
+        public async Task<WorkerMessage> EditWorkerAsync(WorkerAction workerAction)
+        {
+            return await _grpcService.EditWorker(workerAction);
         }
     }
 }
