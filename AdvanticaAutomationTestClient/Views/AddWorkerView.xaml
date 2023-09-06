@@ -14,9 +14,9 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
-                    <ColumnDefinition Width="3.2*"/>
+                    <ColumnDefinition Width="1.8*"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Column="0" Content="{x:Static localize:Resources.AddWorkerLastName}"/>
+                <Label Grid.Column="0" Content="{x:Static localize:Resources.AddWorkerLastName}" />
                 <TextBox Grid.Column="1" Margin="5,0,5,0" Height="25" VerticalContentAlignment="Center"
                          Text="{Binding Worker.LastName, UpdateSourceTrigger=PropertyChanged}"/>
             </Grid>
@@ -24,7 +24,7 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
-                    <ColumnDefinition Width="3.2*"/>
+                    <ColumnDefinition Width="1.8*"/>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Content="{x:Static localize:Resources.AddWorkerFirstName}"/>
                 <TextBox Grid.Column="1" Margin="5,0,5,0" Height="25" VerticalContentAlignment="Center"
@@ -34,7 +34,7 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
-                    <ColumnDefinition Width="3.2*"/>
+                    <ColumnDefinition Width="1.8*"/>
                 </Grid.ColumnDefinitions>
                 <Label Grid.Column="0" Content="{x:Static localize:Resources.AddWorkerMiddleName}"/>
                 <TextBox Grid.Column="1" Margin="5,0,5,0" Height="25" VerticalContentAlignment="Center"
@@ -51,8 +51,8 @@
                             SelectedDate="{Binding Worker.Birthday, UpdateSourceTrigger=PropertyChanged}"
                             Text="{Binding Source={x:Static sys:DateTime.Today}, StringFormat=dd.MM.yyyy}"/>
             </Grid>
-            <StackPanel Orientation="Horizontal">
-                <Grid Margin="50,0,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>

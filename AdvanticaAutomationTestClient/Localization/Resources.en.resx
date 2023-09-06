@@ -117,7 +117,172 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddWorkerAddWorker" xml:space="preserve">
+    <value>Add worker</value>
+  </data>
+  <data name="AddWorkerAddWorkerWizzard" xml:space="preserve">
+    <value>Add worker wizzard</value>
+  </data>
+  <data name="AddWorkerBirtday" xml:space="preserve">
+    <value>*Birthday</value>
+  </data>
+  <data name="AddWorkerError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="AddWorkerFemale" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="AddWorkerFillRequiredFields" xml:space="preserve">
+    <value>Fill all required fields!</value>
+  </data>
+  <data name="AddWorkerFirstName" xml:space="preserve">
+    <value>*First name</value>
+  </data>
+  <data name="AddWorkerHaveChildrens" xml:space="preserve">
+    <value>*Have childrens?</value>
+  </data>
+  <data name="AddWorkerLastName" xml:space="preserve">
+    <value>*Last name</value>
+  </data>
+  <data name="AddWorkerMale" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="AddWorkerMiddleName" xml:space="preserve">
+    <value>Middle name</value>
+  </data>
+  <data name="AddWorkerNo" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="AddWorkerRequired" xml:space="preserve">
+    <value>* - required parameter</value>
+  </data>
+  <data name="AddWorkerSex" xml:space="preserve">
+    <value>Sex of worker</value>
+  </data>
+  <data name="AddWorkerSuccessfullyCreated" xml:space="preserve">
+    <value> successfully created</value>
+  </data>
+  <data name="AddWorkerTakeAdministrator" xml:space="preserve">
+    <value>Oops, something went wrong, please contact the administrator</value>
+  </data>
+  <data name="AddWorkerWorker" xml:space="preserve">
+    <value>Worker</value>
+  </data>
+  <data name="AddWorkerWorkerSuccessfullyAdded" xml:space="preserve">
+    <value>Worker added</value>
+  </data>
+  <data name="AddWorkerYes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="MainAddWorker" xml:space="preserve">
+    <value>Add worker</value>
+  </data>
+  <data name="MainAreYouSureToDeleteWorker" xml:space="preserve">
+    <value>Are you sure want delete worker?</value>
+  </data>
+  <data name="MainBirthday" xml:space="preserve">
+    <value>Birthday:</value>
+  </data>
+  <data name="MainChangeWorkerData" xml:space="preserve">
+    <value>Change data</value>
+  </data>
+  <data name="MainDeleteWorker" xml:space="preserve">
+    <value>Delete worker</value>
+  </data>
+  <data name="MainDeletingWorker" xml:space="preserve">
+    <value>Deleting worker</value>
+  </data>
+  <data name="MainFemale" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="MainHaveChildrens" xml:space="preserve">
+    <value>Have childrens:</value>
+  </data>
+  <data name="MainMale" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="MainNo" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="MainSelectDeleteWorker" xml:space="preserve">
+    <value>Select worker want delete</value>
+  </data>
+  <data name="MainSelectedWorker" xml:space="preserve">
+    <value>Selected worker</value>
+  </data>
+  <data name="MainSelectedWorkerBirthday" xml:space="preserve">
+    <value>Birthday:</value>
+  </data>
+  <data name="MainSelectedWorkerFLM" xml:space="preserve">
+    <value>FLM:</value>
+  </data>
+  <data name="MainSelectedWorkerHaveChildrens" xml:space="preserve">
+    <value>Have childrens:</value>
+  </data>
+  <data name="MainSelectedWorkerSex" xml:space="preserve">
+    <value>Sex:</value>
+  </data>
+  <data name="MainSelectUpdateWorker" xml:space="preserve">
+    <value>Select worker want update</value>
+  </data>
+  <data name="MainSex" xml:space="preserve">
+    <value>Sex:</value>
+  </data>
+  <data name="MainUndefined" xml:space="preserve">
+    <value>Undefined</value>
+  </data>
   <data name="MainWorkerList" xml:space="preserve">
-    <value>List of employees</value>
+    <value>List of workers</value>
+  </data>
+  <data name="MainWorkerNotSelected" xml:space="preserve">
+    <value>Worker not selected</value>
+  </data>
+  <data name="MainWorkerRemoved" xml:space="preserve">
+    <value>Worker removed</value>
+  </data>
+  <data name="MainWorkerSuccessfullyRemoved" xml:space="preserve">
+    <value>Worker successfully removed!</value>
+  </data>
+  <data name="MainYes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="UpdateWorkerBirthday" xml:space="preserve">
+    <value>*Birthday</value>
+  </data>
+  <data name="UpdateWorkerFemale" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="UpdateWorkerFirstName" xml:space="preserve">
+    <value>*First name</value>
+  </data>
+  <data name="UpdateWorkerHaveChildrens" xml:space="preserve">
+    <value>*Have childrens?</value>
+  </data>
+  <data name="UpdateWorkerLastName" xml:space="preserve">
+    <value>*Last name</value>
+  </data>
+  <data name="UpdateWorkerMale" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="UpdateWorkerMiddleName" xml:space="preserve">
+    <value>Middle name</value>
+  </data>
+  <data name="UpdateWorkerNo" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="UpdateWorkerRequired" xml:space="preserve">
+    <value>* - required parameter</value>
+  </data>
+  <data name="UpdateWorkerSex" xml:space="preserve">
+    <value>Sex of worker</value>
+  </data>
+  <data name="UpdateWorkerUpdateWorker" xml:space="preserve">
+    <value>Update worker</value>
+  </data>
+  <data name="UpdateWorkerUpdateWorkerWizzard" xml:space="preserve">
+    <value>Update worker wizzard</value>
+  </data>
+  <data name="UpdateWorkerYes" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>
