@@ -113,6 +113,11 @@ namespace AdvanticaAutomationTestClient.ViewModels
         });
         #endregion
 
+
+        /// <summary>
+        /// Метод, проверяющий обязательные поля.
+        /// </summary>
+        /// <returns>true, если все обязательные поля заполнены, иначе false.</returns>
         private bool ValidateWorkerProps()
         {
             if (string.IsNullOrEmpty(Worker.FirstName) || string.IsNullOrEmpty(Worker.LastName))

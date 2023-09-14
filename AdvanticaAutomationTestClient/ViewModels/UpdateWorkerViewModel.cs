@@ -30,7 +30,7 @@ namespace AdvanticaAutomationTestClient.ViewModels
         }
 
         #region Props
-        public static long Id { get; set; }
+        public static long Id { private get; set; }
         public Action CloseAction { get; set; }
 
         public WorkerServiceModel SelectedWorker
@@ -105,6 +105,10 @@ namespace AdvanticaAutomationTestClient.ViewModels
         });
         #endregion
 
+        /// <summary>
+        /// Метод, позволяющий изменить поля сотрудника.
+        /// </summary>
+        /// <returns>Task, представляющий асинхронную операцию.</returns>
         private async Task SetSelectedWorker()
         {
             var data = await _service.FindWorkerByIdAsync(Id);
@@ -133,6 +137,10 @@ namespace AdvanticaAutomationTestClient.ViewModels
             }
         }
 
+        /// <summary>
+        /// Метод, проверяющий обязательные поля.
+        /// </summary>
+        /// <returns>true, если все обязательные поля заполнены, иначе false.</returns>
         private bool ValidateWorkerProps()
         {
             if (string.IsNullOrEmpty(SelectedWorker.FirstName) || string.IsNullOrEmpty(SelectedWorker.LastName))

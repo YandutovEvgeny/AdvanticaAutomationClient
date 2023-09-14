@@ -8,6 +8,7 @@ using Google.Protobuf.WellKnownTypes;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using Utis.Minex.WrokerIntegration;
 
@@ -26,7 +27,7 @@ namespace AdvanticaAutomationTestClient.ViewModels
             _service = new MainWindowService();
             Workers = new ObservableCollection<WorkerModel>();
 
-            GetWorkers();
+            var workers = GetWorkers();
         }
 
         #region Props
@@ -43,11 +44,11 @@ namespace AdvanticaAutomationTestClient.ViewModels
         #endregion
 
         #region Commands
-        public AddWorkerCommand AddWorkerCommand => new AddWorkerCommand(() =>
+        public AddWorkerCommand AddWorkerCommand => new AddWorkerCommand(async () =>
         {
-            OpenAddWorkerWindow();
+            await OpenAddWorkerWindow();
         });
-        public UpdateWorkerCommand UpdateWorkerCommand => new UpdateWorkerCommand(() =>
+        public UpdateWorkerCommand UpdateWorkerCommand => new UpdateWorkerCommand(async () =>
         {
             if (SelectedWorker == null)
             {
@@ -56,7 +57,7 @@ namespace AdvanticaAutomationTestClient.ViewModels
                 return;
             }
 
-            OpenUpdateWorkerWindow();
+            await OpenUpdateWorkerWindow();
         });
         public DeleteWorkerCommand DeleteWorkerCommand => new DeleteWorkerCommand(async () => 
         {
@@ -87,7 +88,7 @@ namespace AdvanticaAutomationTestClient.ViewModels
 
                 if(deletedWorker is WorkerMessage)
                 {
-                    GetWorkers();
+                    await GetWorkers();
                     MessageBox.Show(Resources.MainWorkerSuccessfullyRemoved, Resources.MainWorkerRemoved, 
                         MessageBoxButton.OK, MessageBoxImage.Information );
                 }
@@ -96,7 +97,10 @@ namespace AdvanticaAutomationTestClient.ViewModels
         });
         #endregion
 
-        public async void GetWorkers()
+        /// <summary>
+        /// Метод, позволяющий получить сотрудников с сервера.
+        /// </summary>
+        private async Task GetWorkers()
         {
             var data = await _service.GetWorkersAsync();
 
@@ -120,19 +124,19 @@ namespace AdvanticaAutomationTestClient.ViewModels
             }
         }
 
-        private void OpenAddWorkerWindow()
+        private async Task OpenAddWorkerWindow()
         {
             var addWindow = new AddWorkerView();
             addWindow.ShowDialog();
-            GetWorkers();
+            await GetWorkers();
         }
 
-        private void OpenUpdateWorkerWindow()
+        private async Task OpenUpdateWorkerWindow()
         {
             UpdateWorkerViewModel.Id = SelectedWorker.Id;
             var updateWindow = new UpdateWorkerView();
             updateWindow.ShowDialog();
-            GetWorkers();
+            await GetWorkers();
         }
 
         private void Notify(string propertyName)
